@@ -31,4 +31,31 @@ function render(){
 $("clearFilters").onclick=function(){$("dateFrom").value="";$("dateTo").value="";$("version").value="";render()};
 $("hint").onclick=function(e){e.preventDefault();$("log").scrollIntoView({behavior:"smooth",block:"start"})};
 $("music").volume=0.25;
+function syncSound(){
+  var muted=$("music").muted||$("music").paused;
+  $("soundToggle").setAttribute("aria-pressed",String(muted));
+  $("soundToggle").title=muted?"Unmute music":"Mute music";
+}
+$("soundToggle").onclick=function(){
+  var audio=$("music");
+  $("musicStatus").textContent="";
+  if(audio.paused){
+    audio.muted=false;
+    audio.play().catch(function(){
+      audio.muted=true;syncSound();
+      $("musicStatus").textContent="Unable to play music. Tap the sound button to try again.";
+    });
+  }else audio.muted=!audio.muted;
+  syncSound();
+};
+["play","pause","ended","volumechange"].forEach(function(event){$("music").addEventListener(event,syncSound)});
+document.addEventListener("click",function(e){
+  if(e.target.closest("#soundToggle"))return;
+  var audio=$("music");
+  audio.muted=false;
+  audio.play().catch(function(){
+    audio.muted=true;syncSound();
+    $("musicStatus").textContent="Unable to play music. Tap the sound button to try again.";
+  });
+},{once:true});
 render();

@@ -156,15 +156,37 @@ body {
 }
 .music {
   position: absolute;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(366px, calc(100% - 28px));
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
   z-index: 6;
 }
-.music audio {
-  display: block;
-  width: 100%;
+.sound-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(8, 12, 20, 0.7);
+  color: var(--text);
+}
+.sound-toggle:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+.sound-toggle[aria-pressed="true"] .sound-on,
+.sound-toggle[aria-pressed="false"] .sound-off {
+  display: none;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 h2 {
   margin: 0 0 12px;
@@ -440,6 +462,8 @@ button {
   bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
+  width: fit-content;
+  margin-inline: auto;
   z-index: 6;
   padding: 0;
 }
