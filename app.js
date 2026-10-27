@@ -30,4 +30,5 @@ function render(){
 ["dateFrom","dateTo","version"].forEach(function(id){$(id).onchange=render});
 $("clearFilters").onclick=function(){$("dateFrom").value="";$("dateTo").value="";$("version").value="";render()};
 $("hint").onclick=function(e){e.preventDefault();$("log").scrollIntoView({behavior:"smooth",block:"start"})};
+$("music").volume=0.25;
 render();

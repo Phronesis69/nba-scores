@@ -154,6 +154,18 @@ body {
   backdrop-filter: blur(10px);
   padding: 16px;
 }
+.music {
+  position: absolute;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(366px, calc(100% - 28px));
+  z-index: 6;
+}
+.music audio {
+  display: block;
+  width: 100%;
+}
 h2 {
   margin: 0 0 12px;
   font-family: "Oswald", Impact, sans-serif;
@@ -433,18 +445,17 @@ button {
 .ph {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center 18%;
+  width: 57%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
   z-index: 0;
 }
 .half.l .ph {
-  right: 43%;
-  background-image: url("images/anthony-edwards.jpg");
-  background-position: 58% 18%;
+  object-position: 58% 18%;
 }
 .half.r .ph {
   left: 43%;
-  background-image: url("images/luguentz-dort.jpg");
 }
 .half.has .player,
 .half.has .bg {
@@ -749,7 +760,35 @@ html {
     margin-top: 24px;
   }
 }
+.ph {
+  animation: page-fade 1.2s ease-out both;
+}
+.center,
+.music,
+.hint,
+#log {
+  animation: page-enter 0.8s ease-out both;
+}
+.center { animation-delay: 0.1s; }
+.music { animation-delay: 0.2s; }
+.hint { animation-delay: 0.3s; }
+#log { animation-delay: 0.35s; }
+@keyframes page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes page-enter {
+  from { opacity: 0; translate: 0 16px; }
+  to { opacity: 1; translate: 0 0; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .ph,
+  .center,
+  .music,
+  .hint,
+  #log {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }
