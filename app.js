@@ -1,7 +1,7 @@
-var state={games:GAMES};
+var state={games:GAMES.slice().sort(function(a,b){return dateKey(a.date).localeCompare(dateKey(b.date))})};
 function $(i){return document.getElementById(i)}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
-function dateKey(date){if(!date)return"";var parts=date.split(" ");return "20"+parts[2]+"-"+parts[1]+"-"+parts[0]}
+function dateKey(date){if(!date)return"";var parts=date.split(".");return parts[2]+"-"+parts[1]+"-"+parts[0]}
 function render(){
   var a=0,b=0,seriesL=0,seriesR=0,n=state.games.length;
   state.games.forEach(function(g){a+=g.ysb;b+=g.sek;if(g.ysb>g.sek)seriesL++;if(g.sek>g.ysb)seriesR++});
